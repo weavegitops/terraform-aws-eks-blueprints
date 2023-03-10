@@ -8,7 +8,7 @@ variable "enable_example" {
 variable "cluster_name" {
   description = "The name of the cluster"
   type        = string 
-  default = "eks-blueprint-wireguard-with-cilium-demo-cluster"
+  default = "demo-wireguard-with-cilium"
 }
 
 variable "region" {
