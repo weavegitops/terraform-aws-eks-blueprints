@@ -1,5 +1,5 @@
 provider "aws" {
-  region = local.region
+  region = var.region
 }
 
 provider "kubernetes" {
@@ -32,7 +32,6 @@ data "aws_availability_zones" "available" {}
 
 locals {
   name   = basename(path.cwd)
-  region = "us-west-2"
 
   vpc_cidr = "10.0.0.0/16"
   azs      = slice(data.aws_availability_zones.available.names, 0, 3)
@@ -40,7 +39,16 @@ locals {
 
   tags = {
     Blueprint  = local.name
-    GithubRepo = "github.com/aws-ia/terraform-aws-eks-blueprints"
+    GithubRepo = "github.com/weavegitops/terraform-aws-eks-blueprints"
+    creator = var.creator_email
+    environment = "demo3"
+    customer ="weaveworks-cx"
+    deployed = "Terraform"
+    projectGid = "99999"
+    region = var.region
+    sshKeyName = "sademo"
+    version = var.kubernetes_version
+    eksClusterName = var.cluster_name
   }
 }
 
@@ -53,8 +61,8 @@ module "eks" {
   source  = "terraform-aws-modules/eks/aws"
   version = "~> 19.9"
 
-  cluster_name                   = local.name
-  cluster_version                = "1.24"
+  cluster_name                   = var.cluster_name
+  cluster_version                = var.kubernetes_version
   cluster_endpoint_public_access = true
 
   # EKS Addons
