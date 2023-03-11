@@ -8,7 +8,7 @@ variable "enable_example" {
 variable "cluster_name" {
   description = "The name of the cluster"
   type        = string 
-  default = "demo-wireguard-with-cilium"
+  default = "demo-eks-blueprint-cil-wg"
 }
 
 variable "region" {
@@ -27,4 +27,22 @@ variable "creator_email" {
   description = "The email address for the creator"
   type = string
   default = "demo3@weave.works"
+}
+
+variable "node_group_min" {
+  description = "Minimum size of node group"
+  type = number
+  default = 1
+}
+
+variable "node_group_max" {
+  description = "Maximum size of node group"
+  type = number
+  default = 5
+}
+
+variable "node_group_desired" {
+  description = "Desired size of node group (must be between min and max)"
+  type = number
+  default = 2
 }
